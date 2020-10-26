@@ -3,11 +3,11 @@ import random
 # Name of class
 class Encryption(object):
     # Initialization function
-    def __init__(self,key_seed,layers):
+    def __init__(self,key_seed,layers,characters):
         # Setting the random seed for key generation
         self.key_seed = key_seed
         # All of the potential characters to be used in input string and key
-        self.alphabet = list("""ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 1234567890!?.,""")
+        self.alphabet = list("""{}""".format(characters))
         # Right now the key is nothing
         self.key = None
         # The number of layers represent the number of occurences of recursive obfuscation
@@ -59,7 +59,7 @@ class Encryption(object):
         self.iterText = text
         hypertext = []
         for j in list(range(len(self.iterText))):
-            self.__iterGenKey(self.key_seed*j*self.key_seed)
+            self.__iterGenKey(self.key_seed*j)
             #print(''.join(self.key))
             #print()
             hypertext.append(self.__iterEncode(self.iterText[j]))
@@ -70,7 +70,7 @@ class Encryption(object):
         self.iterText = text
         hypertext = []
         for j in list(range(len(self.iterText)))[::-1]:
-            self.__iterGenKey(self.key_seed*j*self.key_seed)
+            self.__iterGenKey(self.key_seed*j)
             #print(self.key)
             #print()
             hypertext.insert(0,self.__iterDecode(self.iterText[j]))
